@@ -1,391 +1,903 @@
-export default function CascadeHoodCleaningWebsite() {
-  const services = [
-    "Hood Cleaning",
-    "Exhaust Fan Cleaning",
-    "Duct Cleaning",
-    "Filter Cleaning & Replacement",
-    "Full System Degreasing",
-  ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cascade Hood Cleaning | Restaurant Hood Cleaning</title>
+  <meta
+    name="description"
+    content="Restaurant hood cleaning, exhaust fan cleaning, duct cleaning, and maintenance plans for restaurants and commercial kitchens."
+  />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#111827;
+      --card:rgba(255,255,255,.06);
+      --card2:#172033;
+      --line:rgba(255,255,255,.10);
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --soft:#94a3b8;
+      --accent:#f97316;
+      --accent2:#fb923c;
+      --white:#ffffff;
+      --shadow:0 20px 50px rgba(0,0,0,.28);
+      --radius:24px;
+      --max:1200px;
+    }
 
-  const serviceAreas = ["Seattle", "Tacoma", "Bellevue", "Everett", "Bellingham"];
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(249,115,22,.18), transparent 22%),
+        radial-gradient(circle at bottom left, rgba(251,191,36,.10), transparent 20%),
+        var(--bg);
+      color:var(--text);
+    }
 
-  const testimonials = [
-    {
-      quote:
-        "Passed inspection immediately after Cascade cleaned our system. Fast, professional, and thorough.",
-      author: "Restaurant Owner",
-    },
-    {
-      quote:
-        "They scheduled after hours, showed up on time, and left the kitchen looking great.",
-      author: "Kitchen Manager",
-    },
-    {
-      quote:
-        "Reliable service and great communication. We use them for recurring maintenance now.",
-      author: "Franchise Operator",
-    },
-  ];
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    button{font:inherit}
 
-  const steps = [
-    "Request a quote",
-    "Schedule service after hours",
-    "We clean and degrease the full system",
-    "You receive a report and a compliance-ready kitchen",
-  ];
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+    .hidden{display:none!important}
 
-  const faq = [
-    {
-      q: "How often should a restaurant hood system be cleaned?",
-      a: "Cleaning frequency depends on kitchen volume. High-volume kitchens often need monthly service, medium-volume kitchens quarterly, and low-volume kitchens semi-annually.",
-    },
-    {
-      q: "Why is hood cleaning important?",
-      a: "Grease buildup increases fire risk, can cause failed inspections, and may create insurance issues if the system is not properly maintained.",
-    },
-    {
-      q: "Do you offer maintenance plans?",
-      a: "Yes. Scheduled maintenance helps restaurants stay compliant, avoid missed cleanings, and keep documentation organized for inspections.",
-    },
-  ];
+    /* Header */
+    .topbar{
+      position:sticky;top:0;z-index:1000;
+      backdrop-filter:blur(12px);
+      background:rgba(11,18,32,.86);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;
+      min-height:78px;
+      gap:16px;
+    }
+    .brand{display:flex;flex-direction:column}
+    .brand strong{font-size:1.15rem}
+    .brand span{font-size:.78rem;color:#fdba74}
+    .nav-links{
+      display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;
+    }
+    .nav-links a{
+      padding:10px 14px;border-radius:999px;color:var(--muted);
+      transition:.2s ease;
+    }
+    .nav-links a:hover,.nav-links a.active{
+      background:var(--accent);
+      color:var(--white);
+    }
+    .call-btn,.primary-btn,.ghost-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      border-radius:999px;padding:14px 22px;font-weight:800;border:none;cursor:pointer;
+      transition:.2s ease;
+    }
+    .call-btn,.primary-btn{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:var(--white);
+      box-shadow:0 12px 30px rgba(249,115,22,.22);
+    }
+    .call-btn:hover,.primary-btn:hover{transform:translateY(-1px);filter:brightness(1.05)}
+    .ghost-btn{
+      background:rgba(255,255,255,.05);
+      color:var(--white);
+      border:1px solid var(--line);
+    }
+    .ghost-btn:hover{background:rgba(255,255,255,.10)}
+    .menu-btn{
+      display:none;background:none;border:1px solid var(--line);color:var(--white);
+      border-radius:14px;padding:10px 12px;cursor:pointer;
+    }
 
-  return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div>
-            <div className="text-xl font-bold tracking-tight">Cascade Hood Cleaning</div>
-            <div className="text-xs text-slate-500">Restaurant Hood Cleaning & Exhaust System Service</div>
-          </div>
-          <nav className="hidden gap-6 md:flex text-sm font-medium">
-            <a href="#services" className="hover:text-slate-600">Services</a>
-            <a href="#process" className="hover:text-slate-600">How It Works</a>
-            <a href="#areas" className="hover:text-slate-600">Service Area</a>
-            <a href="#quote" className="hover:text-slate-600">Get Quote</a>
-          </nav>
-          <a
-            href="tel:1234567890"
-            className="rounded-2xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
-          >
-            Call Now
-          </a>
+    .mobile-menu{
+      display:none;flex-direction:column;gap:10px;padding:0 0 18px 0;
+    }
+    .mobile-menu a{
+      padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.04);color:var(--muted)
+    }
+
+    /* Page sections */
+    .page{display:none;padding:42px 0 70px}
+    .page.active{display:block;animation:fade .25s ease}
+    @keyframes fade{
+      from{opacity:0;transform:translateY(6px)}
+      to{opacity:1;transform:none}
+    }
+
+    .eyebrow{
+      display:inline-block;
+      font-size:.78rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:800;
+      color:#fdba74;
+      margin-bottom:16px;
+    }
+    h1,h2,h3{margin:0 0 12px}
+    h1{font-size:clamp(2.4rem,5vw,4.3rem);line-height:1.02}
+    h2{font-size:clamp(1.9rem,3.6vw,3rem)}
+    h3{font-size:1.3rem}
+    p{color:var(--muted);line-height:1.75;margin:0}
+    .section{padding:78px 0}
+    .section-top{margin-bottom:28px}
+    .grid{display:grid;gap:24px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .grid-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+    .soft-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:26px;
+    }
+    .accent-card{
+      background:linear-gradient(135deg,var(--accent),#f59e0b);
+      color:#1a120b;
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:0 18px 50px rgba(249,115,22,.24);
+    }
+    .accent-card p{color:rgba(26,18,11,.84)}
+    .badge-row,.trust-grid,.pill-row{display:flex;flex-wrap:wrap;gap:12px}
+    .pill{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      color:var(--muted);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:.92rem;
+    }
+    .check{
+      display:flex;gap:12px;align-items:flex-start;
+      color:var(--muted)
+    }
+    .check .icon{
+      width:22px;height:22px;border-radius:999px;
+      background:rgba(249,115,22,.14);
+      color:#fdba74;display:flex;align-items:center;justify-content:center;
+      flex:0 0 auto;font-size:13px;margin-top:2px;
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;
+      padding:34px 0 22px;
+    }
+    .hero-copy p{max-width:680px;font-size:1.08rem}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:28px 0}
+    .hero-gallery{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+    }
+    .photo{
+      overflow:hidden;border-radius:26px;border:1px solid var(--line);
+      background:var(--card2);
+      box-shadow:var(--shadow);
+    }
+    .photo img{
+      width:100%;height:230px;object-fit:cover;
+      transition:transform .45s ease;
+    }
+    .photo:hover img{transform:scale(1.05)}
+    .photo-caption{padding:14px 16px}
+    .photo-caption strong{display:block;margin-bottom:4px}
+    .photo-caption span{font-size:.92rem;color:var(--soft)}
+
+    .problem-cards .card h3,
+    .services-cards .card h3,
+    .testimonial .name,
+    .city-card h3{margin-top:12px}
+
+    .steps{display:grid;gap:16px}
+    .step{
+      display:flex;gap:14px;align-items:flex-start;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;padding:18px 20px;
+    }
+    .step-number{
+      width:38px;height:38px;border-radius:16px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:var(--white);display:flex;align-items:center;justify-content:center;
+      font-weight:900;flex:0 0 auto;
+    }
+
+    .service-box{text-align:center}
+    .service-box .service-icon{font-size:1.4rem}
+
+    .stars{color:#fb923c;letter-spacing:2px}
+    .testimonial p{margin-top:14px}
+    .testimonial .name{color:var(--soft);font-weight:700;font-size:.95rem}
+
+    .freq-box{
+      text-align:center;background:rgba(255,255,255,.04);
+      border:1px solid var(--line);border-radius:20px;padding:24px;
+    }
+    .freq-box strong{display:block;font-size:2rem;margin-top:8px}
+
+    .quote-wrap{
+      display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;
+    }
+    .form{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .form input,.form textarea{
+      width:100%;
+      background:#0a1020;
+      color:var(--white);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:15px 16px;
+      outline:none;
+    }
+    .form input:focus,.form textarea:focus{border-color:#fb923c}
+    .form textarea{min-height:150px;resize:vertical}
+    .full{grid-column:1/-1}
+    .note{font-size:.92rem;color:var(--soft)}
+
+    /* Footer */
+    footer{
+      border-top:1px solid var(--line);
+      padding:28px 0 46px;
+      color:var(--soft);
+    }
+    .footer-grid{
+      display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;
+    }
+    .footer-links{display:flex;flex-wrap:wrap;gap:10px}
+    .footer-links a{
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line)
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .hero,.quote-wrap,.grid-5,.grid-4,.grid-3,.grid-2,.footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .grid-5{grid-template-columns:repeat(3,1fr)}
+      .quote-wrap{grid-template-columns:1fr}
+    }
+    @media (max-width: 760px){
+      .nav-links,.call-btn.desktop-only{display:none}
+      .menu-btn{display:block}
+      .mobile-menu.open{display:flex}
+      .hero,.grid-5,.grid-4,.grid-3,.grid-2,.hero-gallery,.footer-grid,.form-grid{
+        grid-template-columns:1fr;
+      }
+      .hero{padding-top:16px}
+      .photo img{height:220px}
+      .page{padding-top:24px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a href="#home" class="brand" onclick="showPage('home')">
+          <strong>Cascade Hood Cleaning</strong>
+          <span>Restaurant Hood Cleaning & Exhaust Service</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="#home" data-link="home" class="active" onclick="showPage('home')">Home</a>
+          <a href="#hood" data-link="hood" onclick="showPage('hood')">Hood Cleaning</a>
+          <a href="#exhaust" data-link="exhaust" onclick="showPage('exhaust')">Exhaust System</a>
+          <a href="#plans" data-link="plans" onclick="showPage('plans')">Maintenance Plans</a>
+          <a href="#areas" data-link="areas" onclick="showPage('areas')">Service Areas</a>
+          <a href="#quote" data-link="quote" onclick="showPage('quote')">Get Quote</a>
+        </nav>
+
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a class="call-btn desktop-only" href="tel:1234567890">Call Now</a>
+          <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>
-      </header>
+      </div>
 
-      <main>
-        <section className="border-b bg-gradient-to-b from-slate-50 to-white">
-          <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="mb-4 inline-flex rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
-                NFPA 96 Compliant • Certified & Insured
-              </div>
-              <h1 className="max-w-2xl text-4xl font-black tracking-tight sm:text-5xl">
-                Restaurant Hood Cleaning That Keeps You Code-Compliant & Fire-Safe
-              </h1>
-              <p className="mt-5 max-w-xl text-lg text-slate-600">
-                Avoid failed inspections, grease fires, and shutdowns with professional exhaust system cleaning for restaurants, cafes, bars, and commercial kitchens.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href="#quote"
-                  className="rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
-                >
-                  Get a Free Quote
-                </a>
-                <a
-                  href="tel:1234567890"
-                  className="rounded-2xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-                >
-                  Call Now
-                </a>
-              </div>
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                {[
-                  "Night scheduling with minimal downtime",
-                  "Before and after photo proof",
-                  "Detailed service reports",
-                  "Restaurant-focused service",
-                ].map((item) => (
-                  <div key={item} className="rounded-2xl border border-slate-200 bg-white p-4 text-sm shadow-sm">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-100 p-8 shadow-sm">
-              <div className="rounded-2xl border-2 border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
-                Add your best before/after hood cleaning photo here
-              </div>
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl bg-white p-5 shadow-sm">
-                  <div className="text-sm font-semibold">Fire Safety</div>
-                  <div className="mt-2 text-sm text-slate-600">Reduce grease buildup and lower kitchen fire risk.</div>
-                </div>
-                <div className="rounded-2xl bg-white p-5 shadow-sm">
-                  <div className="text-sm font-semibold">Inspection Ready</div>
-                  <div className="mt-2 text-sm text-slate-600">Stay prepared for inspections with documented service.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-20">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">The Problem</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Grease buildup is more than a mess. It is a serious business risk.</h2>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Fire Hazard",
-                text: "Grease accumulation inside hoods, ducts, and exhaust fans can increase the chance of a dangerous kitchen fire.",
-              },
-              {
-                title: "Failed Inspections",
-                text: "Improperly maintained systems can lead to violations, costly delays, and potential shutdowns.",
-              },
-              {
-                title: "Insurance Exposure",
-                text: "Skipping regular cleaning can create problems if a claim ever depends on maintenance records.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-3xl border border-slate-200 p-7 shadow-sm">
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="mt-3 text-slate-600">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="services" className="border-y bg-slate-50">
-          <div className="mx-auto max-w-7xl px-6 py-20">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">The Solution</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Restaurant-focused hood and exhaust cleaning services</h2>
-              <p className="mt-4 text-slate-600">
-                Cascade Hood Cleaning handles your entire system so your restaurant stays compliant, safe, and ready for service.
-              </p>
-            </div>
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {services.map((service) => (
-                <div key={service} className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-                  <h3 className="text-xl font-semibold">{service}</h3>
-                  <p className="mt-3 text-slate-600">
-                    Professional service built around restaurant safety, inspection readiness, and cleaner system performance.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="process" className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">How It Works</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">A simple process built to convert fast</h2>
-              <p className="mt-4 text-slate-600">
-                Restaurant owners and kitchen managers need a process that is clear, fast, and easy to schedule without disrupting service.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {steps.map((step, index) => (
-                <div key={step} className="flex gap-4 rounded-3xl border border-slate-200 p-5 shadow-sm">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white">
-                    {index + 1}
-                  </div>
-                  <div className="pt-1 font-medium">{step}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-y bg-slate-50">
-          <div className="mx-auto max-w-7xl px-6 py-20">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Who We Serve</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Built for restaurants and commercial kitchens</h2>
-            </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {[
-                "Restaurants",
-                "Fast Food",
-                "Bars & Grills",
-                "Cafes",
-                "Commercial Kitchens",
-              ].map((item) => (
-                <div key={item} className="rounded-2xl bg-white px-5 py-6 text-center font-semibold shadow-sm ring-1 ring-slate-200">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Before & After</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Real proof builds trust faster than claims</h2>
-              <p className="mt-4 text-slate-600">
-                Add real hood, filter, duct, and exhaust fan photos here. This is one of the strongest conversion sections on the site.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[1, 2, 3, 4].map((n) => (
-                <div
-                  key={n}
-                  className="flex aspect-[4/3] items-center justify-center rounded-3xl border-2 border-dashed border-slate-300 bg-slate-50 text-sm text-slate-500"
-                >
-                  Photo Placeholder {n}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-y bg-slate-50">
-          <div className="mx-auto max-w-7xl px-6 py-20">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Testimonials</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">What restaurant clients want to hear</h2>
-            </div>
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {testimonials.map((item) => (
-                <div key={item.quote} className="rounded-3xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
-                  <p className="text-slate-700">“{item.quote}”</p>
-                  <div className="mt-5 text-sm font-semibold text-slate-500">{item.author}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid gap-8 lg:grid-cols-3">
-            <div className="rounded-3xl border border-slate-200 p-8 shadow-sm lg:col-span-2">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Service Frequency Guide</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight">How often should a hood system be cleaned?</h2>
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                {[
-                  ["High-volume kitchens", "Monthly"],
-                  ["Medium-volume kitchens", "Quarterly"],
-                  ["Low-volume kitchens", "Semi-annually"],
-                ].map(([title, timing]) => (
-                  <div key={title} className="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
-                    <div className="font-semibold">{title}</div>
-                    <div className="mt-2 text-2xl font-black">{timing}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-3xl bg-slate-900 p-8 text-white shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Maintenance Plans</p>
-              <h2 className="mt-3 text-2xl font-bold">Never miss a required cleaning again</h2>
-              <ul className="mt-6 space-y-3 text-sm text-slate-200">
-                <li>Scheduled recurring service</li>
-                <li>Priority booking</li>
-                <li>Inspection readiness</li>
-                <li>Documentation provided</li>
-              </ul>
-              <a
-                href="#quote"
-                className="mt-8 inline-block rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-slate-900"
-              >
-                Ask About Maintenance Plans
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section id="areas" className="border-y bg-slate-50">
-          <div className="mx-auto max-w-7xl px-6 py-20">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Service Area</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Hood cleaning near you</h2>
-              <p className="mt-4 text-slate-600">
-                Create separate local pages for each major city to improve rankings and convert local restaurant searches.
-              </p>
-            </div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-              {serviceAreas.map((city) => (
-                <div key={city} className="rounded-2xl bg-white px-5 py-6 text-center font-semibold shadow-sm ring-1 ring-slate-200">
-                  {city}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-7xl px-6 py-20">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Compliance</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">NFPA 96, fire safety, and inspection readiness</h2>
-              <div className="mt-6 space-y-4 text-slate-600">
-                <p>Explain your compliance process here, including how routine cleaning helps reduce fire risk and supports inspection requirements.</p>
-                <p>Use this section to reinforce why regular hood system cleaning is not optional for serious restaurant operators.</p>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">FAQ</p>
-              <div className="mt-6 space-y-4">
-                {faq.map((item) => (
-                  <div key={item.q} className="rounded-3xl border border-slate-200 p-6 shadow-sm">
-                    <h3 className="text-lg font-semibold">{item.q}</h3>
-                    <p className="mt-2 text-slate-600">{item.a}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="quote" className="bg-slate-900 text-white">
-          <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-start">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Final CTA</p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Need your hood cleaned before your next inspection?</h2>
-              <p className="mt-4 max-w-xl text-slate-300">
-                Make it easy for restaurant owners and kitchen managers to reach you fast. Keep the form short and place your phone number prominently.
-              </p>
-              <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6">
-                <div className="text-sm text-slate-300">Call now</div>
-                <a href="tel:1234567890" className="mt-2 block text-3xl font-black tracking-tight">
-                  (123) 456-7890
-                </a>
-              </div>
-            </div>
-            <form className="rounded-3xl bg-white p-8 text-slate-900 shadow-xl">
-              <h3 className="text-2xl font-bold">Get a Free Quote</h3>
-              <div className="mt-6 grid gap-4">
-                <input className="rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-900" placeholder="Name" />
-                <input className="rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-900" placeholder="Restaurant Name" />
-                <input className="rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-900" placeholder="Phone" />
-                <input className="rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-900" placeholder="Address" />
-                <input className="rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-900" placeholder="Type of Kitchen" />
-                <textarea className="min-h-28 rounded-2xl border border-slate-300 px-4 py-3 outline-none focus:border-slate-900" placeholder="Message" />
-                <button type="button" className="rounded-2xl bg-slate-900 px-6 py-3 font-semibold text-white transition hover:opacity-90">
-                  Request Quote
-                </button>
-              </div>
-            </form>
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-          <div>© 2026 Cascade Hood Cleaning. All rights reserved.</div>
-          <div className="flex gap-4">
-            <a href="#services" className="hover:text-slate-700">Services</a>
-            <a href="#areas" className="hover:text-slate-700">Service Area</a>
-            <a href="#quote" className="hover:text-slate-700">Contact</a>
-          </div>
-        </div>
-      </footer>
+      <div id="mobileMenu" class="mobile-menu">
+        <a href="#home" onclick="showPage('home');closeMenu()">Home</a>
+        <a href="#hood" onclick="showPage('hood');closeMenu()">Hood Cleaning</a>
+        <a href="#exhaust" onclick="showPage('exhaust');closeMenu()">Exhaust System</a>
+        <a href="#plans" onclick="showPage('plans');closeMenu()">Maintenance Plans</a>
+        <a href="#areas" onclick="showPage('areas');closeMenu()">Service Areas</a>
+        <a href="#quote" onclick="showPage('quote');closeMenu()">Get Quote</a>
+      </div>
     </div>
-  );
-}
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="page active">
+    <div class="container">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">NFPA 96 Focused • Certified & Insured</div>
+          <h1>Restaurant Hood Cleaning That Keeps You Code-Compliant & Fire-Safe</h1>
+          <p>
+            Avoid failed inspections, grease fires, and shutdowns with professional hood and exhaust system cleaning built specifically for restaurants and commercial kitchens.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#quote" class="primary-btn" onclick="showPage('quote')">Get a Free Quote</a>
+            <a href="tel:1234567890" class="ghost-btn">Call Now</a>
+          </div>
+
+          <div class="trust-grid">
+            <div class="pill">Night scheduling with minimal downtime</div>
+            <div class="pill">Before and after photo proof</div>
+            <div class="pill">Detailed service reporting</div>
+            <div class="pill">Restaurant-focused cleaning</div>
+          </div>
+        </div>
+
+        <div class="hero-gallery">
+          <div class="photo">
+            <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1200&q=80" alt="Commercial kitchen" />
+            <div class="photo-caption">
+              <strong>Kitchen Service</strong>
+              <span>Professional restaurant-focused work</span>
+            </div>
+          </div>
+
+          <div class="photo">
+            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1200&q=80" alt="Restaurant dining area" />
+            <div class="photo-caption">
+              <strong>Restaurant Environment</strong>
+              <span>Built for active food service businesses</span>
+            </div>
+          </div>
+
+          <div class="photo">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Restaurant interior" />
+            <div class="photo-caption">
+              <strong>Inspection-Ready Results</strong>
+              <span>Cleaner systems and stronger presentation</span>
+            </div>
+          </div>
+
+          <div class="photo">
+            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1200&q=80" alt="Chef in kitchen" />
+            <div class="photo-caption">
+              <strong>After-Hours Scheduling</strong>
+              <span>Keep kitchen downtime to a minimum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-top">
+          <div class="eyebrow">Why Restaurants Call</div>
+          <h2>Grease buildup is more than a mess. It is a serious business risk.</h2>
+          <p>This homepage is built to create urgency around fire safety, failed inspections, and operational risk.</p>
+        </div>
+
+        <div class="grid grid-3 problem-cards">
+          <div class="card">
+            <div class="pill-row"><span class="pill">Fire Hazard</span></div>
+            <h3>Grease can turn into a dangerous kitchen fire risk</h3>
+            <p>Grease inside hoods, ducts, and exhaust fans can increase the chance of a serious fire if the system is not maintained properly.</p>
+          </div>
+
+          <div class="card">
+            <div class="pill-row"><span class="pill">Inspection Trouble</span></div>
+            <h3>Failed inspections can cost time and money</h3>
+            <p>Improperly maintained systems can lead to violations, cleanup stress, service disruption, and expensive delays.</p>
+          </div>
+
+          <div class="card">
+            <div class="pill-row"><span class="pill">Insurance Risk</span></div>
+            <h3>Missing cleaning records can hurt you later</h3>
+            <p>If a claim ever depends on your maintenance history, lack of service records can become a major problem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-top">
+          <div class="eyebrow">Core Services</div>
+          <h2>Restaurant-focused hood and exhaust cleaning</h2>
+          <p>Cascade Hood Cleaning handles the full system so restaurant owners stay compliant, safer, and ready for service.</p>
+        </div>
+
+        <div class="grid grid-5 services-cards">
+          <div class="card service-box">
+            <div class="service-icon">🧽</div>
+            <h3>Hood Cleaning</h3>
+            <p>Degreasing service for restaurant hood systems.</p>
+          </div>
+          <div class="card service-box">
+            <div class="service-icon">🌀</div>
+            <h3>Exhaust Fan Cleaning</h3>
+            <p>Help reduce dangerous grease buildup in the fan area.</p>
+          </div>
+          <div class="card service-box">
+            <div class="service-icon">🛠️</div>
+            <h3>Duct Cleaning</h3>
+            <p>Address hidden buildup deeper inside the system.</p>
+          </div>
+          <div class="card service-box">
+            <div class="service-icon">🔩</div>
+            <h3>Filter Cleaning</h3>
+            <p>Keep filters cleaner and ventilation working better.</p>
+          </div>
+          <div class="card service-box">
+            <div class="service-icon">✅</div>
+            <h3>Full System Degreasing</h3>
+            <p>Higher-value service built around full exhaust cleaning.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid grid-2">
+          <div>
+            <div class="eyebrow">How It Works</div>
+            <h2>A simple process that makes it easy to book</h2>
+            <p>Restaurant owners want a fast process with clear next steps.</p>
+
+            <div class="hero-actions">
+              <a href="#quote" class="primary-btn" onclick="showPage('quote')">Request a Quote</a>
+              <a href="#plans" class="ghost-btn" onclick="showPage('plans')">See Maintenance Plans</a>
+            </div>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div>
+                <strong>Request a quote</strong>
+                <p>Simple contact form or direct phone call.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div>
+                <strong>Schedule service after hours</strong>
+                <p>Reduce disruption to restaurant operations.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">3</div>
+              <div>
+                <strong>We clean and degrease the system</strong>
+                <p>Built around safety, compliance, and cleaner performance.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">4</div>
+              <div>
+                <strong>You receive a report and a compliance-ready kitchen</strong>
+                <p>Proof matters to restaurant owners and inspections.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-top">
+          <div class="eyebrow">Who We Serve</div>
+          <h2>Built for restaurants and commercial kitchens</h2>
+        </div>
+
+        <div class="grid grid-5">
+          <div class="soft-card">Restaurants</div>
+          <div class="soft-card">Fast Food</div>
+          <div class="soft-card">Bars & Grills</div>
+          <div class="soft-card">Cafes</div>
+          <div class="soft-card">Commercial Kitchens</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid grid-2">
+          <div>
+            <div class="eyebrow">Before & After</div>
+            <h2>Photos are one of your strongest conversion tools</h2>
+            <p>Replace these sample images with your own real hood cleaning before and after shots for even stronger trust and better conversions.</p>
+          </div>
+
+          <div class="hero-gallery">
+            <div class="photo">
+              <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Kitchen hood" />
+              <div class="photo-caption"><strong>Service Photo</strong><span>Add your own before photo later</span></div>
+            </div>
+            <div class="photo">
+              <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80" alt="Restaurant kitchen" />
+              <div class="photo-caption"><strong>Kitchen Finish</strong><span>Add your own after photo later</span></div>
+            </div>
+            <div class="photo">
+              <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80" alt="Restaurant workspace" />
+              <div class="photo-caption"><strong>Exhaust Work</strong><span>Show process and proof</span></div>
+            </div>
+            <div class="photo">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="Restaurant setting" />
+              <div class="photo-caption"><strong>Restaurant Focus</strong><span>Keep the site industry-specific</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-top">
+          <div class="eyebrow">Testimonials</div>
+          <h2>What restaurant operators want to hear</h2>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“Passed inspection immediately after Cascade cleaned our system. Fast, professional, and thorough.”</p>
+            <div class="name">Restaurant Owner</div>
+          </div>
+          <div class="card testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“They scheduled after hours, showed up on time, and left the kitchen looking great.”</p>
+            <div class="name">Kitchen Manager</div>
+          </div>
+          <div class="card testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“Reliable service and great communication. We use them for recurring maintenance now.”</p>
+            <div class="name">Franchise Operator</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="eyebrow">Cleaning Frequency</div>
+            <h2>How often should a hood system be cleaned?</h2>
+            <div class="grid grid-3" style="margin-top:24px;">
+              <div class="freq-box">
+                <div>High-volume kitchens</div>
+                <strong>Monthly</strong>
+              </div>
+              <div class="freq-box">
+                <div>Medium-volume kitchens</div>
+                <strong>Quarterly</strong>
+              </div>
+              <div class="freq-box">
+                <div>Low-volume kitchens</div>
+                <strong>Semi-annually</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="accent-card">
+            <div class="eyebrow" style="color:rgba(26,18,11,.68)">Recurring Revenue</div>
+            <h2 style="color:#1a120b">Never miss a required cleaning again</h2>
+            <div class="check" style="margin-top:18px"><div class="icon">✓</div><div>Scheduled recurring service</div></div>
+            <div class="check" style="margin-top:12px"><div class="icon">✓</div><div>Priority booking</div></div>
+            <div class="check" style="margin-top:12px"><div class="icon">✓</div><div>Inspection readiness</div></div>
+            <div class="check" style="margin-top:12px"><div class="icon">✓</div><div>Documentation provided</div></div>
+
+            <div style="margin-top:26px">
+              <a href="#plans" class="ghost-btn" style="background:#111827;color:#fff;border:none" onclick="showPage('plans')">View Plans</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="quote-wrap">
+          <div>
+            <div class="eyebrow">Final CTA</div>
+            <h2>Need your hood cleaned before your next inspection?</h2>
+            <p>Keep your phone number easy to find and make the form short so more restaurant owners reach out.</p>
+
+            <div style="margin-top:26px">
+              <a href="tel:1234567890" class="primary-btn">(123) 456-7890</a>
+            </div>
+          </div>
+
+          <div class="form">
+            <h3>Quick Quote Form</h3>
+            <div class="form-grid" style="margin-top:18px">
+              <input type="text" placeholder="Name" />
+              <input type="text" placeholder="Restaurant Name" />
+              <input type="text" placeholder="Phone" />
+              <input type="text" placeholder="Address" />
+              <input type="text" class="full" placeholder="Type of Kitchen" />
+              <textarea class="full" placeholder="Message"></textarea>
+              <button class="primary-btn full" type="button" onclick="showPage('quote')">Open Full Quote Page</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOOD PAGE -->
+  <section id="hood" class="page">
+    <div class="container">
+      <div class="section-top">
+        <div class="eyebrow">Service Page</div>
+        <h2>Restaurant Hood Cleaning Services</h2>
+        <p>This page is built to convert search traffic looking specifically for hood cleaning services.</p>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1600&q=80" alt="Commercial kitchen hood" />
+          <div class="photo-caption">
+            <strong>What’s Included</strong>
+            <div class="check" style="margin-top:10px"><div class="icon">✓</div><div>Hood canopy cleaning</div></div>
+            <div class="check" style="margin-top:10px"><div class="icon">✓</div><div>Filter cleaning</div></div>
+            <div class="check" style="margin-top:10px"><div class="icon">✓</div><div>Duct access area cleaning</div></div>
+            <div class="check" style="margin-top:10px"><div class="icon">✓</div><div>Exhaust fan cleaning when accessible</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Why It Matters</h3>
+          <div class="check" style="margin-top:18px"><div class="icon">✓</div><div>Prevent grease fires</div></div>
+          <div class="check" style="margin-top:12px"><div class="icon">✓</div><div>Pass inspections</div></div>
+          <div class="check" style="margin-top:12px"><div class="icon">✓</div><div>Protect staff and customers</div></div>
+          <div class="check" style="margin-top:12px"><div class="icon">✓</div><div>Avoid shutdowns and downtime</div></div>
+
+          <div class="photo" style="margin-top:24px">
+            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1400&q=80" alt="Restaurant kitchen" />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:28px">
+        <div class="card">
+          <h3>Signs You Need Cleaning</h3>
+          <div class="check" style="margin-top:18px"><div class="icon">!</div><div>Visible grease buildup</div></div>
+          <div class="check" style="margin-top:12px"><div class="icon">!</div><div>Strong odor around the hood system</div></div>
+          <div class="check" style="margin-top:12px"><div class="icon">!</div><div>Smoke not venting well</div></div>
+          <div class="check" style="margin-top:12px"><div class="icon">!</div><div>Recent failed inspection</div></div>
+        </div>
+
+        <div class="accent-card">
+          <h3>Get Your Hood Inspection-Ready</h3>
+          <p>Use this page for strong local SEO headlines like “Restaurant Hood Cleaning Seattle” and move people directly to your quote page.</p>
+          <div class="hero-actions" style="margin-top:24px">
+            <a href="#quote" class="ghost-btn" style="background:#111827;color:#fff;border:none" onclick="showPage('quote')">Get a Free Quote</a>
+            <a href="tel:1234567890" class="ghost-btn" style="border-color:rgba(26,18,11,.15);color:#1a120b;background:transparent">Call (123) 456-7890</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXHAUST PAGE -->
+  <section id="exhaust" class="page">
+    <div class="container">
+      <div class="section-top">
+        <div class="eyebrow">Higher Ticket Service</div>
+        <h2>Full Exhaust System Cleaning</h2>
+        <p>This page sells full-system cleaning by explaining the hidden grease risk inside ductwork and fan systems.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Why Full-System Cleaning Matters</h3>
+          <p>Cleaning only the visible hood is not enough when grease continues building deeper in the system.</p>
+        </div>
+        <div class="card">
+          <h3>Hidden Grease in Ducts</h3>
+          <p>Ductwork can hold dangerous grease buildup that restaurant owners do not always see from the kitchen floor.</p>
+        </div>
+        <div class="card">
+          <h3>Compliance Benefits</h3>
+          <p>Routine full-system cleaning supports safer operation and stronger inspection readiness.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:28px">
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=80" alt="Commercial kitchen workspace" />
+          <div class="photo-caption">
+            <strong>Full-System Focus</strong>
+            <span>Explain risk, safety, and documentation here</span>
+          </div>
+        </div>
+
+        <div class="accent-card">
+          <h3>Need a full-system quote?</h3>
+          <p>Use this page to move customers toward a higher-value service by explaining risk, safety, and documentation.</p>
+          <div style="margin-top:22px">
+            <a href="#quote" class="ghost-btn" style="background:#111827;color:#fff;border:none" onclick="showPage('quote')">Request Exhaust System Quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANS PAGE -->
+  <section id="plans" class="page">
+    <div class="container">
+      <div class="section-top">
+        <div class="eyebrow">Maintenance Plans</div>
+        <h2>Never Miss a Required Cleaning Again</h2>
+        <p>This page is built for recurring revenue and long-term restaurant clients.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Scheduled Service</h3>
+          <p>Stay on a consistent cleaning schedule without scrambling before inspections.</p>
+        </div>
+        <div class="card">
+          <h3>Priority Booking</h3>
+          <p>Recurring customers can be positioned as a priority, which makes this offer more attractive.</p>
+        </div>
+        <div class="card">
+          <h3>Documentation Provided</h3>
+          <p>Keep records organized and ready when inspections or insurance questions come up.</p>
+        </div>
+      </div>
+
+      <div class="accent-card" style="margin-top:28px">
+        <div class="eyebrow" style="color:rgba(26,18,11,.68)">Best for retention</div>
+        <h2 style="color:#1a120b">Turn one-time jobs into recurring restaurant accounts</h2>
+        <p>Maintenance plans are one of the best ways to increase predictable monthly revenue and client retention.</p>
+        <div style="margin-top:22px">
+          <a href="#quote" class="ghost-btn" style="background:#111827;color:#fff;border:none" onclick="showPage('quote')">Ask About Ongoing Service</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AREAS PAGE -->
+  <section id="areas" class="page">
+    <div class="container">
+      <div class="section-top">
+        <div class="eyebrow">Local SEO</div>
+        <h2>Hood Cleaning Near You</h2>
+        <p>Create one local page for each major city you want to rank in.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <div class="card city-card">
+          <div class="pill">Seattle</div>
+          <h3>Restaurant Hood Cleaning Seattle</h3>
+          <p>Build a city-specific page here with local keywords, proof, and a direct quote CTA.</p>
+        </div>
+        <div class="card city-card">
+          <div class="pill">Tacoma</div>
+          <h3>Restaurant Hood Cleaning Tacoma</h3>
+          <p>Keep the language specific to restaurants, inspections, and kitchen fire safety.</p>
+        </div>
+        <div class="card city-card">
+          <div class="pill">Bellevue</div>
+          <h3>Restaurant Hood Cleaning Bellevue</h3>
+          <p>Use city names naturally in headings and CTA sections.</p>
+        </div>
+        <div class="card city-card">
+          <div class="pill">Everett</div>
+          <h3>Restaurant Hood Cleaning Everett</h3>
+          <p>Local pages help you rank better for service-area searches.</p>
+        </div>
+        <div class="card city-card">
+          <div class="pill">Bellingham</div>
+          <h3>Restaurant Hood Cleaning Bellingham</h3>
+          <p>Add photos, testimonials, and stronger proof for each city over time.</p>
+        </div>
+        <div class="card city-card">
+          <div class="pill">Olympia</div>
+          <h3>Restaurant Hood Cleaning Olympia</h3>
+          <p>Each city page should drive people toward a fast quote or direct phone call.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:28px">
+        <a href="#quote" class="primary-btn" onclick="showPage('quote')">Request Service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE PAGE -->
+  <section id="quote" class="page">
+    <div class="container">
+      <div class="quote-wrap">
+        <div>
+          <div class="section-top">
+            <div class="eyebrow">Get Quote</div>
+            <h2>Request a Free Quote</h2>
+            <p>Keep the form short and easy. Shorter forms usually convert better for service businesses.</p>
+          </div>
+
+          <div class="card">
+            <div class="eyebrow">Call now</div>
+            <h2 style="margin-bottom:6px">(123) 456-7890</h2>
+            <p>Replace this placeholder number with your real number and connect your form to Formspree or your email later.</p>
+          </div>
+        </div>
+
+        <form class="form" onsubmit="event.preventDefault(); alert('Form submitted. Later you can connect this to email or Formspree.');">
+          <h3>Quote Request Form</h3>
+          <div class="form-grid" style="margin-top:18px">
+            <input type="text" placeholder="Name" required />
+            <input type="text" placeholder="Restaurant Name" />
+            <input type="text" placeholder="Phone" required />
+            <input type="text" placeholder="Address" />
+            <input type="text" class="full" placeholder="Type of Kitchen" />
+            <textarea class="full" placeholder="Message"></textarea>
+            <button class="primary-btn full" type="submit">Submit Quote Request</button>
+          </div>
+          <p class="note" style="margin-top:14px">
+            This form is visual right now. To make it actually email you, connect it later to Formspree.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong style="color:#fff">Cascade Hood Cleaning</strong>
+        <p style="margin-top:10px">Professional hood and exhaust cleaning for restaurants, bars, cafes, and commercial kitchens.</p>
+      </div>
+
+      <div>
+        <strong style="color:#fff">Pages</strong>
+        <div class="footer-links" style="margin-top:12px">
+          <a href="#home" onclick="showPage('home')">Home</a>
+          <a href="#hood" onclick="showPage('hood')">Hood Cleaning</a>
+          <a href="#exhaust" onclick="showPage('exhaust')">Exhaust System</a>
+          <a href="#plans" onclick="showPage('plans')">Plans</a>
+          <a href="#areas" onclick="showPage('areas')">Areas</a>
+          <a href="#quote" onclick="showPage('quote')">Quote</a>
+        </div>
+      </div>
+
+      <div>
+        <strong style="color:#fff">Contact</strong>
+        <p style="margin-top:10px">(123) 456-7890</p>
+        <p style="margin-top:8px">Swap in your real phone number, testimonials, photos, and service cities.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function showPage(pageId){
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      const page = document.getElementById(pageId);
+      if(page){ page.classList.add('active'); }
+
+      document.querySelectorAll('[data-link]').forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector('[data-link="' + pageId + '"]');
+      if(activeLink){ activeLink.classList.add('active'); }
+
+      if(window.innerWidth < 761){ closeMenu(); }
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function toggleMenu(){
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    function closeMenu(){
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    window.addEventListener('load', () => {
+      const hash = window.location.hash.replace('#','');
+      const valid = ['home','hood','exhaust','plans','areas','quote'];
+      if(valid.includes(hash)){ showPage(hash); }
+      else { showPage('home'); }
+    });
+  </script>
+</body>
+</html>
