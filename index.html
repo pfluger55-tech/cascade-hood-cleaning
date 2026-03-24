@@ -2,157 +2,97 @@
 <html>
 <head>
 <title>Cascade Hood Cleaning</title>
-
 <style>
 body {
-  margin:0;
   font-family: Arial;
-  background:#0b1a2b;
-  color:white;
+  margin: 0;
+  background: #111;
+  color: white;
 }
 
-/* NAV */
-nav {
-  background:#0f2f5f;
-  padding:15px;
-  text-align:center;
+header {
+  background: black;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
 }
 
-nav a {
-  color:white;
-  margin:0 15px;
-  text-decoration:none;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* PAGES */
-.page {
-  display:none;
-  padding:60px 20px;
-  text-align:center;
-}
-
-.active {
-  display:block;
-}
-
-/* HERO */
 .hero {
-  background: linear-gradient(rgba(0,0,50,0.7), rgba(0,0,50,0.7)),
-  url('https://images.unsplash.com/photo-1600566752227-8f45d8dcb9c4');
-  background-size:cover;
-  padding:120px 20px;
+  padding: 80px 20px;
+  text-align: center;
+  background: url('https://images.unsplash.com/photo-1556911220-bff31c812dba') center/cover;
 }
 
 .hero h1 {
-  font-size:42px;
+  font-size: 40px;
 }
 
-/* BUTTON */
 .btn {
-  background:white;
-  color:#0f2f5f;
-  padding:15px 25px;
-  text-decoration:none;
-  display:inline-block;
-  margin-top:20px;
-  font-weight:bold;
-  border-radius:6px;
+  background: orange;
+  padding: 15px 25px;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: bold;
 }
 
-/* CARDS */
-.cards {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
+.section {
+  padding: 50px 20px;
+  text-align: center;
 }
 
 .card {
-  background:#132f57;
-  padding:20px;
-  margin:10px;
-  width:250px;
-  border-radius:10px;
+  background: #222;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  width: 250px;
 }
 
-/* FOOTER */
-footer {
-  background:#0f2f5f;
-  padding:20px;
-  text-align:center;
+.footer {
+  background: black;
+  padding: 20px;
+  text-align: center;
 }
 </style>
-
-<script>
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
-</script>
-
 </head>
 
 <body>
 
-<nav>
-<a onclick="showPage('home')">Home</a>
-<a onclick="showPage('services')">Services</a>
-<a onclick="showPage('about')">About</a>
-<a onclick="showPage('quote')">Quote</a>
-</nav>
+<header>
+Cascade Hood Cleaning
+</header>
 
-<!-- HOME -->
-<div id="home" class="page active">
-  <div class="hero">
-    <h1>Restaurant Hood Cleaning That Keeps You Safe</h1>
-    <p>Stay compliant. Avoid fires. Pass inspections.</p>
-    <a class="btn" href="tel:3604207185">Call Mike: 360-420-7185</a>
-  </div>
+<div class="hero">
+<h1>Restaurant Hood Cleaning That Keeps You Safe</h1>
+<p>Stay compliant. Avoid fires. Pass inspections.</p>
+<a class="btn" href="#">Get a Free Quote</a>
 </div>
 
-<!-- SERVICES -->
-<div id="services" class="page">
-  <h2>Our Services</h2>
+<div class="section">
+<h2>Our Services</h2>
 
-  <div class="cards">
-    <div class="card">Hood Cleaning</div>
-    <div class="card">Exhaust Fan Cleaning</div>
-    <div class="card">Duct Cleaning</div>
-    <div class="card">Filter Cleaning</div>
-  </div>
+<div class="card">Hood Cleaning</div>
+<div class="card">Exhaust Cleaning</div>
+<div class="card">Duct Cleaning</div>
 
-  <p style="margin-top:30px;">
-    We clean full restaurant exhaust systems to keep you compliant and fire-safe.
-  </p>
 </div>
 
-<!-- ABOUT -->
-<div id="about" class="page">
-  <h2>About Cascade Hood Cleaning</h2>
-  <p>Owner: Mike Pfluger</p>
-  <p>Serving restaurants across Washington.</p>
-
-  <p style="margin-top:20px;">
-    We help restaurants stay open, pass inspections, and avoid dangerous grease buildup.
-  </p>
+<div class="section">
+<h2>Why It Matters</h2>
+<p>Grease buildup causes fires, failed inspections, and shutdowns.</p>
 </div>
 
-<!-- QUOTE -->
-<div id="quote" class="page">
-  <h2>Get a Free Quote</h2>
-  <p>Call or request service today</p>
-
-  <a class="btn" href="tel:3604207185">📞 360-420-7185</a>
-
-  <p style="margin-top:20px;">
-    Fast response. After-hours scheduling available.
-  </p>
+<div class="section">
+<h2>Call Now</h2>
+<p>(123) 456-7890</p>
 </div>
 
-<footer>
-Cascade Hood Cleaning | Owner Mike Pfluger
-</footer>
+<div class="footer">
+© Cascade Hood Cleaning
+</div>
 
 </body>
 </html>
